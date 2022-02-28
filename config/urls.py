@@ -7,15 +7,25 @@ from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
 
+# import tasks.urls
+"""
+urlpatterns = (
+    []
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # + tasks.urls.urlpatterns
+)
+
+"""
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
+    path("", include("tasks.urls")),
+    # path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
     # Django Admin, use {% url 'admin:index' %}
-    path(settings.ADMIN_URL, admin.site.urls),
+    # path(settings.ADMIN_URL, admin.site.urls), # this is removed because of error due to 2 same urls
     # User management
-    path("users/", include("task_manager_cookiecutter.users.urls", namespace="users")),
+    path("users/", include("task_manager_cc.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

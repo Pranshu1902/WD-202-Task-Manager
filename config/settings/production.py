@@ -6,7 +6,9 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["task-manager-pranshu.herokuapp.com"])
+ALLOWED_HOSTS = [
+    "pranshu19-task-manager.herokuapp.com"
+]  # env.list("DJANGO_ALLOWED_HOSTS", default=["pranshu19-task-manager.herokuapp.com"])
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -65,7 +67,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env(
     "DJANGO_DEFAULT_FROM_EMAIL",
-    default="Task Manager <noreply@task-manager-pranshu.herokuapp.com>",
+    default="Task Manager <noreply@pranshu19-task-manager.herokuapp.com>",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)

@@ -6,8 +6,8 @@ from pathlib import Path
 import environ
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
-# task_manager_cookiecutter/
-APPS_DIR = ROOT_DIR / "task_manager_cookiecutter"
+# task_manager_cc/
+APPS_DIR = ROOT_DIR / "task_manager_cc"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
@@ -44,7 +44,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
-        default="postgres:///task_manager_cookiecutter",
+        default="postgres://postgres:admin@localhost/task_manager",
     ),
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
@@ -82,10 +82,12 @@ THIRD_PARTY_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "drf_spectacular",
+    "django_filters",
 ]
 
 LOCAL_APPS = [
-    "task_manager_cookiecutter.users",
+    "task_manager_cc.users",
+    "tasks",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -94,7 +96,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "task_manager_cookiecutter.contrib.sites.migrations"}
+MIGRATION_MODULES = {"sites": "task_manager_cc.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -190,20 +192,21 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "task_manager_cookiecutter.users.context_processors.allauth_settings",
+                "task_manager_cc.users.context_processors.allauth_settings",
             ],
         },
     }
 ]
 
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#form-renderer
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
-
 # http://django-crispy-forms.readthedocs.io/en/latest/install.html#template-packs
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 # FIXTURES
+
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
 FIXTURE_DIRS = (str(APPS_DIR / "fixtures"),)
@@ -268,7 +271,6 @@ if USE_TZ:
     # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-timezone
     CELERY_TIMEZONE = TIME_ZONE
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
-# CELERY_BROKER_URL = env("CELERY_BROKER_URL")
 CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://localhost:6379")
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
@@ -296,15 +298,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = "task_manager_cookiecutter.users.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "task_manager_cc.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
-ACCOUNT_FORMS = {"signup": "task_manager_cookiecutter.users.forms.UserSignupForm"}
+ACCOUNT_FORMS = {"signup": "task_manager_cc.users.forms.UserSignupForm"}
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = "task_manager_cookiecutter.users.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "task_manager_cc.users.adapters.SocialAccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
-SOCIALACCOUNT_FORMS = {
-    "signup": "task_manager_cookiecutter.users.forms.UserSocialSignupForm"
-}
+SOCIALACCOUNT_FORMS = {"signup": "task_manager_cc.users.forms.UserSocialSignupForm"}
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
@@ -331,7 +331,7 @@ SPECTACULAR_SETTINGS = {
     "SERVERS": [
         {"url": "http://127.0.0.1:8000", "description": "Local Development server"},
         {
-            "url": "https://task-manager-pranshu.herokuapp.com",
+            "url": "https://pranshu19-task-manager.herokuapp.com",
             "description": "Production server",
         },
     ],

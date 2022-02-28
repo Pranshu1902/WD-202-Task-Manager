@@ -24,8 +24,8 @@ if __name__ == "__main__":
         raise
 
     # This allows easy placement of apps within the interior
-    # task_manager_cookiecutter directory.
+    # task_manager_cc directory.
     current_path = Path(__file__).parent.resolve()
-    sys.path.append(str(current_path / "task_manager_cookiecutter"))
+    sys.path.append(str(current_path / "task_manager_cc"))
 
     execute_from_command_line(sys.argv)

@@ -270,7 +270,7 @@ Session.vim
 tags
 
 ### Project template
-task_manager_cookiecutter/media/
+task_manager_cc/media/
 
 .pytest_cache/
 .env

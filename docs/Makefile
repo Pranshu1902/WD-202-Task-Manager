@@ -7,7 +7,7 @@ SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = .
 BUILDDIR      = ./_build
-APP = ../task_manager_cookiecutter
+APP = ../task_manager_cc
 
 
 .PHONY: help livehtml apidocs Makefile

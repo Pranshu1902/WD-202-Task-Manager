@@ -27,7 +27,7 @@ For convenience, you can keep your normal user logged in on Chrome and your supe
 
 Running type checks with mypy:
 
-    $ mypy task_manager_cookiecutter
+    $ mypy task_manager_cc
 
 ### Test coverage
 
@@ -52,7 +52,7 @@ This app comes with Celery.
 To run a celery worker:
 
 ``` bash
-cd task_manager_cookiecutter
+cd task_manager_cc
 celery -A config.celery_app worker -l info
 ```
 
