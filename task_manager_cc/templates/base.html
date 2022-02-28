@@ -49,9 +49,12 @@
 
         {% block header %}
         <!--Welcome and logout option-->
-        <div style="display: inline-flex;" class="flex pt-6 pl-6 pb-6 text-xl text-center">
-            <p class="text-3xl pr-12">Hi {{request.user}}</p>
+        <div style="display: inline-flex;" class="flex pt-6 pl-6 text-xl text-center">
+            <p class="text-3xl pr-12 pt-6">Hi {{request.user}}</p>
             <a href="/user/logout"><p class="font-semibold text-xl text-red-600 px-10 py-2 hover:text-red-800">Log Out</p></a>
+        </div>
+        <div style="padding-left: 50%;" class="flex pl-6 pb-6 text-xl text-center">
+            <a href="/email"><p class="font-semibold text-xl text-red-600 px-10 py-2 hover:text-red-800">Email Notification</p></a>
         </div>
 
         <!--Number of tasks-->
